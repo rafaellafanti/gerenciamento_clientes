@@ -1,0 +1,36 @@
+package com.example.gerenciamento_clientes.services;
+
+import com.example.gerenciamento_clientes.models.ClienteModel;
+import com.example.gerenciamento_clientes.repositories.ClienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ClienteService {
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    public ClienteModel salvar(ClienteModel cliente) {
+        return clienteRepository.save(cliente);
+    }
+
+    public List<ClienteModel> listarTodos() {
+        return clienteRepository.findAll();
+    }
+
+    public ClienteModel buscarPorId(Long id) {
+        return clienteRepository.findById(id).orElse(null);
+    }
+
+    public ClienteModel atualizar(Long id, ClienteModel clienteAtualizado) {
+        clienteAtualizado.setId(id);
+        return clienteRepository.save(clienteAtualizado);
+    }
+
+    public void deletar(Long id) {
+        clienteRepository.deleteById(id);
+    }
+}
